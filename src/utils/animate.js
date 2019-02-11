@@ -37,6 +37,7 @@ const _showLine = (lineName) => {
 }
 
 export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
+    console.log({SplitText})
     // Get a reference to the text to animate
     var sentence = document.querySelector(lineName + ' .a-text');
     // Convert spaces to &nbsp;

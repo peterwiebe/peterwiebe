@@ -1,4 +1,3 @@
-import SplitText from "./gsap/SplitText"
 import TimelineMax from "gsap/TimelineMax"
 import TweenLite from "gsap/TweenLite"
 
@@ -37,7 +36,7 @@ const _showLine = (lineName) => {
     document.querySelector(lineName).setAttribute("style", "opacity: 1;")
 }
 
-export const animateCharactersOfLine = (lineName, isLast) => {
+export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
     // Get a reference to the text to animate
     var sentence = document.querySelector(lineName + ' .a-text');
     // Convert spaces to &nbsp;

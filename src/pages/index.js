@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect } from "react"
 // import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import Draggable from "gsap/Draggable"
@@ -56,23 +56,22 @@ const Interface = styled.div`
   cursor: text;
 `
 
-const IndexPage2 = () => {
+const IndexPage = () => {
   const masterTimeline = new TimelineMax({paused: true})
 
   useEffect(() => {
+    // Need to import SplitText here due to SSR errors when building
+    const SplitText = require("../utils/gsap/SplitText")
     // Make <Terminal/> draggable
     Draggable.create("#terminal-window", {
       bounds: "#container",
     })
-  })
-
-  useEffect(() => {
     // Animation timelines
     masterTimeline
-      .add(animateCharactersOfLine('#a-hello'))
-      .add(animateCharactersOfLine('#a-name'))
-      .add(animateCharactersOfLine('#a-passion'))
-      .add(animateCharactersOfLine('#a-build', true))
+      .add(animateCharactersOfLine('#a-hello', SplitText))
+      .add(animateCharactersOfLine('#a-name', SplitText))
+      .add(animateCharactersOfLine('#a-passion', SplitText))
+      .add(animateCharactersOfLine('#a-build', SplitText, true))
       .play()
   })
 
@@ -96,4 +95,4 @@ const IndexPage2 = () => {
   )
 }
 
-export default IndexPage2
+export default IndexPage

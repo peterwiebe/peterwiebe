@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Peter Wiebe - developer, creator`,
+    description: `Peter Wiebe is a software developer at EquitySim. Due to the nature of working at a startup he wears many hats, whether it be building services in Node, building UX with React and Redux, or setting up Kubernetes infrastructure`,
     author: `@gatsbyjs`,
   },
   plugins: [

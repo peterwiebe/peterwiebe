@@ -2,11 +2,11 @@
   "name": "gatsby-starter-default",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "emotion": "^10.0.6",
-    "emotion-server": "^10.0.6",
+    "@emotion/core": "^10.0.6",
+    "@emotion/styled": "^10.0.6",
     "gatsby": "^2.0.107",
     "gatsby-image": "^2.0.29",
     "gatsby-plugin-emotion": "^4.0.1",
@@ -16,10 +16,10 @@
     "gatsby-plugin-sharp": "^2.0.19",
     "gatsby-source-filesystem": "^2.0.19",
     "gatsby-transformer-sharp": "^2.1.13",
+    "gsap": "^2.0.2",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-emotion": "^10.0.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-helmet": "^5.2.0"
   },
   "keywords": [

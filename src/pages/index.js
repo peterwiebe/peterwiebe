@@ -8,6 +8,7 @@ import {animateCharactersOfLine} from "../utils/animate"
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
+import Input from "../components/input"
 
 const Terminal = styled.div`
   width: 100%;
@@ -58,6 +59,10 @@ const Interface = styled.div`
 
 const IndexPage = () => {
   const masterTimeline = new TimelineMax({paused: true})
+  // Data to initialize state
+  const initialEntries = [
+    {id: "a-hello", body: "Hello 🌎"}
+  ]
 
   useEffect(() => {
     // Need to import SplitText here due to SSR errors when building
@@ -89,6 +94,7 @@ const IndexPage = () => {
           <div id="a-name" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">my name is Peter Wiebe</div></div>
           <div id="a-passion" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">and I love to build things, including but not limited to</div></div>
           <div id="a-build" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">user interfaces, web services, and anything internet connected</div></div>
+          <Input />
         </Interface>
       </Terminal>
     </Layout>

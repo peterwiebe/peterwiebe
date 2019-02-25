@@ -5,3 +5,15 @@
  */
 
 // You can delete this file if you're not using it
+
+import React from 'react'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient from './src/clients/apollo'
+
+
+export const wrapRootElement = ({ element }) => (
+    <ApolloProvider client={ApolloClient}>
+        {element}
+    </ApolloProvider>
+)
+

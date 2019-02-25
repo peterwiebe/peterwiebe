@@ -1,5 +1,20 @@
 import React, { useRef, useState } from "react"
 import styled from "@emotion/styled"
+import { gql } from "apollo-boost"
+import { Mutation } from "react-apollo"
+
+const ADD_COMMAND_REQUEST = gql`
+    mutation EnterCommand($command: String!) {
+        createCommandRequest(entry: $command) {
+            success
+            entry
+            command {
+                command
+                helpText
+            }
+        }
+    }
+`
 
 const Wrapper = styled.div`
     display: inline-block;
@@ -16,8 +31,20 @@ const Input = () => {
     const [input, setInput] = useState("")
     const [lines, setLines] = useState([])
 
-    const handleKeyDown = (e) => {
+    const addLine = (line) => {
+        console.log({line})
+        let newLine = line
+        if (line.hasOwnProperty('createCommandRequest')) {
+            newLine = line.createCommandRequest.command.helpText
+        }
+        setLines(prev => [...prev, newLine])
+    }
+
+    const handleKeyDown = (submit, loading) => (e) => {
         e.persist()
+        if (loading) {
+            return
+        }
         // console.log(e.keyCode, e.key, e)
         const {key, keyCode} = e
 
@@ -26,7 +53,10 @@ const Input = () => {
             return
         // For 'Enter' (13) do something special
         } else if (keyCode === 13) {
-            setLines(prev => [...prev, input])
+            // setLines(prev => [...prev, input])
+            addLine(input)
+            // Submit command to GraphQL endpoint
+            submit()
             setInput("")
         // For 'Tab' (9) maintain focus on input
         } else if (keyCode === 9) {
@@ -42,6 +72,7 @@ const Input = () => {
             return
         // For 'Delete' remove the last character
         } else if (keyCode === 8) {
+            e.preventDefault()
             setInput(prev => prev.slice(0, Math.max(0, prev.length - 1)))
         } else {
             setInput(prev => prev + key)
@@ -49,25 +80,36 @@ const Input = () => {
     }
 
     return (
-        <Wrapper
-            autoFocus
-            ref={ref}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
+        <Mutation
+            mutation={ADD_COMMAND_REQUEST}
+            variables={{command: input}}
+            onCompleted={addLine}
+            onError={(e) =>{console.log('Error', e)}}
         >
-            {lines.map((line, index) => {
-                return (<div key={index}>{line}</div>)
-            })}
-            {input}
-            <span
-                style={{
-                    backgroundColor: 'white',
-                    color: 'black'
-                }}
-            >
-                &nbsp;
-            </span>
-        </Wrapper>
+            {(submitCommand, {loading}) => {
+                return (
+                    <Wrapper
+                        autoFocus
+                        ref={ref}
+                        tabIndex={0}
+                        onKeyDown={handleKeyDown(submitCommand, loading)}
+                    >
+                        {lines.map((line, index) => {
+                            return (<div key={index}>{line}</div>)
+                        })}
+                        {!loading && input}
+                        <span
+                            style={{
+                                backgroundColor: 'white',
+                                color: 'black'
+                            }}
+                        >
+                            &nbsp;
+                        </span>
+                    </Wrapper>
+                )
+            }}
+        </Mutation>
     )
 }
 

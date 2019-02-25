@@ -65,7 +65,7 @@ const IndexPage = () => {
   ]
 
   useEffect(() => {
-    // Need to import SplitText here due to SSR errors when building
+    // Need to import SplitText after mounting due to SSR errors when building
     const SplitText = require("../utils/gsap/SplitText").SplitText
     // Make <Terminal/> draggable
     Draggable.create("#terminal-window", {

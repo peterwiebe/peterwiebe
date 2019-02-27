@@ -9,4 +9,7 @@ import fetch from 'isomorphic-fetch'
 export default new ApolloClient({
     uri: "https://peterwiebe-server.now.sh",
     fetch,
+    fetchOptions: {
+        'Access-Control-Allow-Origin': '*'
+    }
 })

@@ -46,6 +46,7 @@ export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
     // Get a reference to the cursor
     console.log('jell')
     var cursor = document.querySelector(lineName + ' .a-cursor')
+    var sibling = cursor.nextSibling
     console.log({cursor})
     // Create a new timeline that will animate the text
     var tl = new TimelineMax()
@@ -57,7 +58,7 @@ export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
     // Split text into characters and words
     var text = new SplitText(sentence, {type: 'chars'})
     // Move the cursor into the container for the split characters
-    cursor.nextSibling.insertBefore(cursor, cursor.nextSibling.firstChild)
+    sibling.insertBefore(cursor, sibling.firstChild)
     // Set text opacity to 0
     TweenLite.set(text.chars, { opacity: 0 });
 

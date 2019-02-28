@@ -32,7 +32,6 @@ const Input = () => {
     const [lines, setLines] = useState([])
 
     const addLine = (line) => {
-        console.log({line})
         let newLine = line
         if (line.hasOwnProperty('createCommandRequest')) {
             newLine = line.createCommandRequest.command.helpText

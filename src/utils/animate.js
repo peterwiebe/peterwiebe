@@ -37,13 +37,16 @@ const _showLine = (lineName) => {
 }
 
 export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
-    console.log({lineName})
     // Get a reference to the text to animate
+    console.log('rekt')
     var sentence = document.querySelector(lineName + ' .a-text');
+    console.log('nope')
     // Convert spaces to &nbsp;
     _escapeSpaceCharacters(sentence)
     // Get a reference to the cursor
+    console.log('jell')
     var cursor = document.querySelector(lineName + ' .a-cursor')
+    console.log({cursor})
     // Create a new timeline that will animate the text
     var tl = new TimelineMax()
     // Show line to animate

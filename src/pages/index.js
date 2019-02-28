@@ -22,6 +22,7 @@ const Terminal = styled.div`
   -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.8), 0px 16px 55px 4px rgba(158,158,158,1);
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.8), 0px 16px 55px 4px rgba(158,158,158,1);
 `
+
 const WindowBar = styled.div`
   display: flex;
   align-items: center;

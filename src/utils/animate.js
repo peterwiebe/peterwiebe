@@ -1,5 +1,5 @@
-import TimelineMax from "gsap/TimelineMax"
-import TweenLite from "gsap/TweenLite"
+import TimelineMax from "./gsap/TimelineMax"
+import TweenLite from "./gsap/TweenLite"
 
 const _escapeSpaceCharacters = (el) => {
     el.innerText = el.innerText.replace(/\s+/g, '\u00a0')
@@ -38,9 +38,7 @@ const _showLine = (lineName) => {
 
 export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
     // Get a reference to the text to animate
-    console.log('rekt')
     var sentence = document.querySelector(lineName + ' .a-text');
-    console.log('nope')
     // Convert spaces to &nbsp;
     _escapeSpaceCharacters(sentence)
     // Get a reference to the cursor

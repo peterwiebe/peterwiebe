@@ -95,7 +95,7 @@ const IndexPage = () => {
           <div id="a-name" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">my name is Peter Wiebe</div></div>
           <div id="a-passion" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">and I love to build things, including but not limited to</div></div>
           <div id="a-build" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">user interfaces, web services, and anything internet connected</div></div>
-          {/* <Input /> */}
+          <Input />
         </Interface>
       </Terminal>
     </Layout>

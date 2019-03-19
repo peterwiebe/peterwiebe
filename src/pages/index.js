@@ -77,6 +77,7 @@ const IndexPage = () => {
     // Make <Terminal/> draggable
     Draggable.create("#terminal-window", {
       bounds: "#container",
+      trigger: "#terminal-window-bar"
     })
     // Animation timelines
     masterTimeline
@@ -92,12 +93,12 @@ const IndexPage = () => {
     <Layout id="container" fullPage>
       <SEO title="Terminal" />
       <Terminal id="terminal-window">
-        <WindowBar>
+        <WindowBar id="terminal-window-bar">
           <WindowButton fail/>
           <WindowButton warn/>
           <WindowButton success/>
         </WindowBar>
-        <Interface onClick={function(e) {console.log()}}>
+        <Interface>
           <div id="a-hello" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">Hello 🌎</div></div>
           <div id="a-name" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my name is Peter Wiebe</div></div>
           <div id="a-passion" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my passion is in building products, both digital and physical</div></div>

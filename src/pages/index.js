@@ -71,6 +71,10 @@ const IndexPage = () => {
     inputEl.current.showInput()
   }
 
+  const focusInput = () => {
+    inputEl.current.focus()
+  }
+
   useEffect(() => {
     // Need to import SplitText after mounting due to SSR errors when building
     const SplitText = require("../utils/gsap/SplitText").SplitText
@@ -98,7 +102,7 @@ const IndexPage = () => {
           <WindowButton warn/>
           <WindowButton success/>
         </WindowBar>
-        <Interface>
+        <Interface onClick={focusInput}>
           <div id="a-hello" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">Hello 🌎</div></div>
           <div id="a-name" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my name is Peter Wiebe</div></div>
           <div id="a-passion" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my passion is in building products, both digital and physical</div></div>

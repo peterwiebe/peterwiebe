@@ -38,6 +38,8 @@ const Input = (props, ref) => {
     const [lines, setLines] = useState([])
     // State: is visible
     const [isVisible, setVisibility] = useState(false)
+    // State is focused
+    const [isFocused, setFocus] = useState(false)
 
     const addLine = (line) => {
         let newLine = line
@@ -86,12 +88,30 @@ const Input = (props, ref) => {
         }
     }
 
+    const blur = () => {
+        setFocus(false)
+    }
+
+    const focus = () => {
+        wrapperEl.current.focus()
+        setFocus(true)
+    }
+
     // To allow a Ref to make this component visible
     useImperativeHandle(ref, () => ({
         showInput: () => {
             setVisibility(true)
-        }
+        },
+        focus,
     }))
+
+    const caretStyle = isFocused
+        ? {
+            backgroundColor: 'white', color: 'black'
+        }
+        : {
+            border: '1px solid white',
+        }
 
     return (
         <Mutation
@@ -106,6 +126,7 @@ const Input = (props, ref) => {
                         autoFocus
                         ref={wrapperEl}
                         tabIndex={0}
+                        onBlur={blur}
                         onKeyDown={handleKeyDown(submitCommand, loading)}
                     >
                         {lines.map((line, index) => {
@@ -114,7 +135,7 @@ const Input = (props, ref) => {
                         <InputWrapper ref={ref} isVisible={isVisible}>
                             $>&nbsp;
                             {!loading && input}
-                            <span style={{backgroundColor: 'white', color: 'black'}}>
+                            <span style={caretStyle}>
                                 &nbsp;
                             </span>
                         </InputWrapper>

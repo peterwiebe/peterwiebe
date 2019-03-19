@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
  * VERSION: 0.6.1
  * DATE: 2018-08-27
@@ -7,14 +8,14 @@
  * SplitText is a Club GreenSock membership benefit; You must have a valid membership to use
  * this code without violating the terms of use. Visit http://greensock.com/club/ to sign up or get more details.
  * This work is subject to the software agreement that was issued with your membership.
- * 
+ *
  * @author: Jack Doyle, jack@greensock.com
  */
 
 import { _gsScope, globals } from "gsap/TweenLite.js";
 
 (function(window) {
-	
+
 	"use strict";
 	var _globals = window.GreenSockGlobals || window,
 		_namespace = function(ns) {
@@ -554,7 +555,7 @@ import { _gsScope, globals } from "gsap/TweenLite.js";
 		return (typeof(document) === "undefined") ? e : (document.querySelectorAll ? document.querySelectorAll(e) : document.getElementById((e.charAt(0) === "#") ? e.substr(1) : e));
 	};
 	SplitText.version = "0.6.1";
-	
+
 })(_gsScope);
 
 export var SplitText = globals.SplitText;

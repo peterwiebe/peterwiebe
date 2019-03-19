@@ -42,10 +42,8 @@ export const animateCharactersOfLine = (lineName, SplitText, isLast) => {
     // Convert spaces to &nbsp;
     _escapeSpaceCharacters(sentence)
     // Get a reference to the cursor
-    console.log('jell')
     var cursor = document.querySelector(lineName + ' .a-cursor')
     var sibling = cursor.nextSibling
-    console.log({cursor})
     // Create a new timeline that will animate the text
     var tl = new TimelineMax()
     // Show line to animate

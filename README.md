@@ -2,6 +2,15 @@
 
 Uses Netlify. Netlify is connected to the github repo. After pushing to master a new deployment will start.
 
+## Issues faced
+
+-
+
+
+
+
+
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
  * VERSION: 2.0.2
  * DATE: 2018-08-27
@@ -6,7 +7,7 @@
  * @license Copyright (c) 2008-2018, GreenSock. All rights reserved.
  * This work is subject to the terms at http://greensock.com/standard-license or for
  * Club GreenSock members, the software agreement that was issued with your membership.
- * 
+ *
  * @author: Jack Doyle, jack@greensock.com
  */
 import TweenLite, { _gsScope, globals, Animation, SimpleTimeline } from "./TweenLite.js";

@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react"
+import React, { forwardRef, useRef, useState, useImperativeHandle } from "react"
 import styled from "@emotion/styled"
 import { gql } from "apollo-boost"
 import { Mutation } from "react-apollo"
 
-const ADD_COMMAND_REQUEST = gql`
+const CREATE_COMMAND_REQUEST = gql`
     mutation EnterCommand($command: String!) {
         createCommandRequest(entry: $command) {
             success
@@ -16,7 +16,7 @@ const ADD_COMMAND_REQUEST = gql`
     }
 `
 
-const Wrapper = styled.div`
+const CommandPrompt = styled.div`
     display: inline-block;
     white-space: pre-wrap;
     word-break: break-all;
@@ -26,10 +26,18 @@ const Wrapper = styled.div`
     }
 `
 
-const Input = () => {
-    const ref = useRef()
+const InputWrapper = styled.div`
+    opacity: ${({isVisible}) => isVisible ? 1 : 0};
+`
+
+const Input = (props, ref) => {
+    const wrapperEl = useRef(null)
+    // State: custom input field
     const [input, setInput] = useState("")
+    // State: previous submitted commands
     const [lines, setLines] = useState([])
+    // State: is visible
+    const [isVisible, setVisibility] = useState(false)
 
     const addLine = (line) => {
         let newLine = line
@@ -53,7 +61,7 @@ const Input = () => {
         // For 'Enter' (13) do something special
         } else if (keyCode === 13) {
             // setLines(prev => [...prev, input])
-            addLine(input)
+            addLine(`$> ${input}`)
             // Submit command to GraphQL endpoint
             submit()
             setInput("")
@@ -78,38 +86,43 @@ const Input = () => {
         }
     }
 
+    // To allow a Ref to make this component visible
+    useImperativeHandle(ref, () => ({
+        showInput: () => {
+            setVisibility(true)
+        }
+    }))
+
     return (
         <Mutation
-            mutation={ADD_COMMAND_REQUEST}
+            mutation={CREATE_COMMAND_REQUEST}
             variables={{command: input}}
             onCompleted={addLine}
-            onError={(e) =>{console.log('Error', e)}}
+            onError={(e) =>{console.log(e)}}
         >
             {(submitCommand, {loading}) => {
                 return (
-                    <Wrapper
+                    <CommandPrompt
                         autoFocus
-                        ref={ref}
+                        ref={wrapperEl}
                         tabIndex={0}
                         onKeyDown={handleKeyDown(submitCommand, loading)}
                     >
                         {lines.map((line, index) => {
                             return (<div key={index}>{line}</div>)
                         })}
-                        {!loading && input}
-                        <span
-                            style={{
-                                backgroundColor: 'white',
-                                color: 'black'
-                            }}
-                        >
-                            &nbsp;
-                        </span>
-                    </Wrapper>
+                        <InputWrapper ref={ref} isVisible={isVisible}>
+                            $>&nbsp;
+                            {!loading && input}
+                            <span style={{backgroundColor: 'white', color: 'black'}}>
+                                &nbsp;
+                            </span>
+                        </InputWrapper>
+                    </CommandPrompt>
                 )
             }}
         </Mutation>
     )
 }
 
-export default Input
+export default forwardRef(Input)

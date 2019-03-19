@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 // import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import Draggable from "gsap/Draggable"
@@ -65,6 +65,12 @@ const IndexPage = () => {
     {id: "a-hello", body: "Hello 🌎"}
   ]
 
+  const inputEl = useRef(null)
+
+  const showInput = () => {
+    inputEl.current.showInput()
+  }
+
   useEffect(() => {
     // Need to import SplitText after mounting due to SSR errors when building
     const SplitText = require("../utils/gsap/SplitText").SplitText
@@ -78,6 +84,7 @@ const IndexPage = () => {
       .add(animateCharactersOfLine('#a-name', SplitText))
       .add(animateCharactersOfLine('#a-passion', SplitText))
       .add(animateCharactersOfLine('#a-build', SplitText, true))
+      .addCallback(showInput)
       .play()
   })
 
@@ -91,11 +98,11 @@ const IndexPage = () => {
           <WindowButton success/>
         </WindowBar>
         <Interface onClick={function(e) {console.log()}}>
-          <div id="a-hello" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">Hello 🌎</div></div>
-          <div id="a-name" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">my name is Peter Wiebe</div></div>
-          <div id="a-passion" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">and I love to build things, including but not limited to</div></div>
-          <div id="a-build" style={{opacity: 0}}><span className='a-cursor'>&#9608;</span><div className="a-text">user interfaces, web services, and anything internet connected</div></div>
-          <Input />
+          <div id="a-hello" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">Hello 🌎</div></div>
+          <div id="a-name" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my name is Peter Wiebe</div></div>
+          <div id="a-passion" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">my passion is in building products, both digital and physical</div></div>
+          <div id="a-build" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">enter a command to learn more about me (you can start with: help)</div></div>
+          <Input ref={inputEl} />
         </Interface>
       </Terminal>
     </Layout>

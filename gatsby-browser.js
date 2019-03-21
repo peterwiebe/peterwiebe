@@ -9,6 +9,7 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import ApolloClient from './src/clients/apollo'
+import LogRocket from 'logrocket'
 
 
 export const wrapRootElement = ({ element }) => (
@@ -16,3 +17,7 @@ export const wrapRootElement = ({ element }) => (
         {element}
     </ApolloProvider>
 )
+
+export const onClientEntry = () => {
+    LogRocket.init('wpmvs0/peterwiebecom');
+}

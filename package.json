@@ -21,6 +21,7 @@
     "gatsby-transformer-sharp": "^2.1.13",
     "gsap": "^2.0.2",
     "isomorphic-fetch": "^2.2.1",
+    "logrocket": "^0.6.19",
     "prop-types": "^15.6.2",
     "react": "^16.8.1",
     "react-apollo": "^2.5.2",

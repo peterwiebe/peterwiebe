@@ -13,6 +13,20 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    // Analytics plugins
+    {
+      resolve: `gatsby-plugin-heap`,
+      options: {
+        appId: `1378394995`,
+        enableOnDevMode: true,
+      }
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: `UA-136675183-1`
+      }
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

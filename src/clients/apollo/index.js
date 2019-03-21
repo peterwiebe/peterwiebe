@@ -8,6 +8,7 @@ import fetch from 'isomorphic-fetch'
 
 export default new ApolloClient({
     uri: "https://peterwiebe-server.now.sh",
+    // TODO: swap uri location based on environment variable
     // uri: "http://localhost:4000",
     fetch,
     fetchOptions: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 // import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import Draggable from "gsap/Draggable"
@@ -10,13 +10,19 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Input from "../components/input"
 
+const windowBarHeight = '36px;'
+
 const Terminal = styled.div`
   width: 100%;
   max-width: ${8 * 12 * 10}px;
+  ${({isMinimized}) => isMinimized ? `max-height: ${windowBarHeight};` : null}
+  ${({isMinimized}) => isMinimized ? `overflow: hidden;` : null}
+
   color: white;
   font-family: source-code-pro, monospace;
   font-weight: 400;
   font-style: normal;
+
   border-radius: 6px;
   -webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.8), 0px 16px 55px 4px rgba(158,158,158,1);
   -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.8), 0px 16px 55px 4px rgba(158,158,158,1);
@@ -28,7 +34,7 @@ const WindowBar = styled.div`
   align-items: center;
   padding-left: 12px;
   width: 100%;
-  height: 36px;
+  height: ${windowBarHeight};
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c4c4c4+0,c4c4c4+100&0.12+0,1+100 */
   background: -moz-linear-gradient(top, rgba(196,196,196,0.24) 0%, hsl(0, 0%, 57%) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(196,196,196,0.24) 0%,hsl(0, 0%, 57%) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -47,6 +53,8 @@ const WindowButton = styled.div`
     props.warn ? '#FB8C00' :
     props.fail ? '#D32F2F' : ''};
   margin-right: 8px;
+
+  cursor: pointer;
 `
 
 const Interface = styled.div`
@@ -58,12 +66,17 @@ const Interface = styled.div`
   cursor: text;
 `
 
+// Data to initialize state
+const initialEntries = [
+  {id: "a-hello", body: "Hello 🌎"}
+]
+
 const IndexPage = () => {
+  const [isMinimized, setMinimized] = useState(false)
+   // Currently only used to make sure that useEffect for intro animation is only executed on mount, not on update (triggered by isMinimized)
+  const [messageLines, setMessageLines] = useState(initialEntries)
+  const [windeau, setWindeau] = useState(null)
   const masterTimeline = new TimelineMax({paused: true})
-  // Data to initialize state
-  const initialEntries = [
-    {id: "a-hello", body: "Hello 🌎"}
-  ]
 
   const inputEl = useRef(null)
 
@@ -75,6 +88,22 @@ const IndexPage = () => {
     inputEl.current.focus()
   }
 
+  const closeBrowser = () => {
+    console.log('clicked', {windeau})
+    if (windeau) {
+      windeau.open('','_self').close()
+    }
+  }
+
+  const maximize = () => {
+    setMinimized(false)
+  }
+
+  const minimize = () => {
+    setMinimized(true)
+  }
+
+  // Animation Effect
   useEffect(() => {
     // Need to import SplitText after mounting due to SSR errors when building
     const SplitText = require("../utils/gsap/SplitText").SplitText
@@ -91,16 +120,23 @@ const IndexPage = () => {
       .add(animateCharactersOfLine('#a-build', SplitText, true))
       .addCallback(showInput)
       .play()
+  }, [messageLines])
+
+  // Window effect
+  useEffect(() => {
+    if (!windeau) {
+      setWindeau(window)
+    }
   })
 
   return (
     <Layout id="container" fullPage>
       <SEO title="Terminal" />
-      <Terminal id="terminal-window">
+      <Terminal id="terminal-window" isMinimized={isMinimized}>
         <WindowBar id="terminal-window-bar">
-          <WindowButton fail/>
-          <WindowButton warn/>
-          <WindowButton success/>
+          <WindowButton fail onClick={closeBrowser}/>
+          <WindowButton warn onClick={minimize}/>
+          <WindowButton success onClick={maximize}/>
         </WindowBar>
         <Interface onClick={focusInput}>
           <div id="a-hello" style={{opacity: 0}}><span className='a-cursor' style={{backgroundColor:'#fff'}}>&#32;</span><div className="a-text">Hello 🌎</div></div>

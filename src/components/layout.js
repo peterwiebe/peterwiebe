@@ -26,7 +26,7 @@ const Layout = ({ children, fullPage, id }) => (
             maxWidth: `${fullPage ? 'unset' : 960}`,
             padding: `0px 1.0875rem 1.45rem`,
             paddingTop: 0,
-            height: `${fullPage ? '100%' : 'inherit'}`
+            height: `${fullPage ? '100vh' : 'inherit'}`
           }}
         >
           <main>{children}</main>
